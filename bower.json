@@ -1,0 +1,18 @@
+{
+  "name": "doctors",
+  "version": "0.0.0",
+  "authors": [
+    "Arzzzen <arzenslim@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.2.1"
+  }
+}

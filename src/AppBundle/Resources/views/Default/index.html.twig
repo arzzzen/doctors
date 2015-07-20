@@ -1,0 +1,42 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Докторская{% endblock %}
+
+{% block body %}
+    <h1>Запись на прием</h1>
+    <div id="appointment-app">
+        <div class="progress"></div>
+        <div id="step"></div>
+        <button type="button" class="btn btn-info" id="prevStep" disabled>назад</button>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/template" id="progress-template">
+	    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%= progress %>%">
+	    </div>
+    </script>
+    <script type="text/template" id="specialist-type-template">
+        <a href="#" class="list-group-item spec-type"><%= title %></a>
+    </script>
+    <script type="text/template" id="specialist-template">
+        <a href="#" class="list-group-item spec"><%= first_name %> <%= last_name %></a>
+    </script>
+    <script type="text/template" id="specialist-template">
+    </script>
+
+    {% javascripts
+      '@AppBundle/Resources/public/js/models/appointment.js'
+      '@AppBundle/Resources/public/js/models/specialist.js'
+      '@AppBundle/Resources/public/js/models/specialist-type.js'
+      '@AppBundle/Resources/public/js/collections/specialist-types.js'
+      '@AppBundle/Resources/public/js/collections/specialists.js'
+      '@AppBundle/Resources/public/js/views/specialist-type-view.js'
+      '@AppBundle/Resources/public/js/views/specialist-types-step-view.js'
+      '@AppBundle/Resources/public/js/views/specialist-view.js'
+      '@AppBundle/Resources/public/js/views/specialists-step-view.js'
+      '@AppBundle/Resources/public/js/views/app-view.js'
+      '@AppBundle/Resources/public/js/app.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
