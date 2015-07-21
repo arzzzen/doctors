@@ -4,6 +4,11 @@ var app = app || {};
 	'use strict';
 
 	app.SpecialistView = Backbone.View.extend({
+		tagName: 'a',
+		className: 'list-group-item spec-type clearfix',
+		attributes: {
+			href: '#'
+		},
 
 		template: _.template($('#specialist-template').html()),
 

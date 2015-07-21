@@ -21,7 +21,8 @@
         <em><%= desc.length > 200 ? desc.substring(0, 200)+ '[...]' : desc %></em>
     </script>
     <script type="text/template" id="specialist-template">
-        <a href="#" class="list-group-item spec"><%= first_name %> <%= last_name %></a>
+        <img class="spec_image" src="<%= imagePath %>" alt="<%= first_name %> <%= last_name %>" />
+        <h4 class="list-group-item-heading"><%= first_name %> <%= last_name %></h4>
     </script>
     <script type="text/template" id="specialist-template">
     </script>

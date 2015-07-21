@@ -7,3 +7,8 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+  app.listener.serializationlistener:
+    class: AppBundle\Listener\SerializationListener
+    arguments: ['@service_container']
+    tags:
+      - { name: jms_serializer.event_subscriber }
