@@ -4,6 +4,11 @@ var app = app || {};
     'use strict';
 
     app.SpecialistTypeView = Backbone.View.extend({
+        tagName: 'a',
+        className: 'list-group-item spec-type',
+        attributes: {
+            href: '#'
+        },
 
         events: {
             'click': 'chooseType'

@@ -5,7 +5,8 @@ var app = app || {};
 
     app.SpecialistType = Backbone.Model.extend({
         defaults: {
-            title: ''
+            title: '',
+            desc: ''
         }
     });
 })();

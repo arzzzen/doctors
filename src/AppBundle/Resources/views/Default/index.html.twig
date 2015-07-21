@@ -17,7 +17,8 @@
 	    </div>
     </script>
     <script type="text/template" id="specialist-type-template">
-        <a href="#" class="list-group-item spec-type"><%= title %></a>
+        <h4><%= title %></h4>
+        <em><%= desc.length > 200 ? desc.substring(0, 200)+ '[...]' : desc %></em>
     </script>
     <script type="text/template" id="specialist-template">
         <a href="#" class="list-group-item spec"><%= first_name %> <%= last_name %></a>

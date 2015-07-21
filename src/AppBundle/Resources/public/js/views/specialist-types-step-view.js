@@ -4,6 +4,7 @@ var app = app || {};
     'use strict';
 
     app.SpecialistTypesStepView = Backbone.View.extend({
+        className: 'list-group',
 
         initialize: function () {
             this.listenTo(app.specialistTypes, 'add', this.addOne);

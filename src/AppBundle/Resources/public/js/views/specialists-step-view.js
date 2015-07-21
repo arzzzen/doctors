@@ -4,6 +4,7 @@ var app = app || {};
     'use strict';
 
     app.SpecialistsStepView = Backbone.View.extend({
+        className: 'list-group',
 
         initialize: function () {
             this.listenTo(app.specialists, 'add', this.addOne);
@@ -27,8 +28,12 @@ var app = app || {};
         },
 
         addAll: function () {
-            this.$el.html('');
-            app.specialists.each(this.addOne, this);
+            if (app.specialists.length) {
+                this.$el.html('');
+                app.specialists.each(this.addOne, this);
+            }  else {
+                this.$el.text('Не найден ни один специалист');
+            }
         }
     });
 })(jQuery);

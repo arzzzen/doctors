@@ -32,6 +32,13 @@ class SpecialistType
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="desc", type="text", length=2000, nullable=true)
+     */
+    private $desc;
+
+    /**
      * @ORM\OneToMany(targetEntity="Specialist", mappedBy="type")
      * @Exclude
      **/
@@ -64,11 +71,34 @@ class SpecialistType
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set desc
+     *
+     * @param string $desc
+     * @return SpecialistType
+     */
+    public function setDesc($desc)
+    {
+        $this->desc = $desc;
+
+        return $this;
+    }
+
+    /**
+     * Get desc
+     *
+     * @return string
+     */
+    public function getDesc()
+    {
+        return $this->desc;
     }
 
     public function __construct() {
