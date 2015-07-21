@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -87,3 +87,14 @@ swiftmailer:
 
 braincrafted_bootstrap:
     less_filter: sass
+
+easy_admin:
+    entities:
+        Specialist:
+            class: AppBundle\Entity\Specialist
+        SpecialistType:
+            class: AppBundle\Entity\SpecialistType
+            form:
+                fields: ['id', 'title', 'desc']
+            show:
+                fields: ['id', 'title', 'desc']

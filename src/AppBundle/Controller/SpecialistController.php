@@ -29,8 +29,8 @@ class SpecialistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Specialist')->findBy(array('type_id' => $type_id));
-        $specialists = $this->container->get('serializer')->serialize($entities, 'json');
+        $entities = $em->getRepository('AppBundle:Specialist')->findBy(array('type' => $type_id));
+        $specialists =  $this->container->get('jms_serializer')->serialize($entities, 'json');
         return new Response($specialists);
     }
 

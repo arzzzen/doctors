@@ -38,20 +38,11 @@ class Specialist
      */
     private $lastName;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="SpecialistType", inversedBy="specialists")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @Exclude
      **/
     private $type;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="type_id", type="integer")
-     */
-    private $type_id;
-
 
     /**
      * Get id
@@ -107,5 +98,25 @@ class Specialist
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getName() {
+        return trim($this->firstName . ' ' . $this->lastName);
+    }
+
+    public function __toString() {
+        return $this->getName();
     }
 }

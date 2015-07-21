@@ -108,4 +108,8 @@ class SpecialistType
     public function getSpecialists() {
         return $this->specialists;
     }
+
+    public function __toString() {
+        return $this->title;
+    }
 }
