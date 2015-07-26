@@ -10,9 +10,12 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "src/AppBundle/Resources/public/vendor/"
   ],
   "dependencies": {
-    "backbone": "~1.2.1"
-  }
+    "backbone": "~1.2.1",
+    "fullcalendar": "~2.3.2"
+  },
+  "homepage": "https://github.com/arzzzen/doctors"
 }

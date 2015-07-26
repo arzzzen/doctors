@@ -2,13 +2,12 @@
 
 namespace AppBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Specialist;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Specialist controller.
@@ -21,23 +20,26 @@ class SpecialistController extends Controller
     /**
      * Lists all Specialist entities.
      *
-     * @Route("/t{type_id}", name="specialist", options={"expose"=true}, requirements={"type_id"="\d+"})
+     * @Route("/", name="specialist", options={"expose"=true}, requirements={"type_id"="\d+"}, )
      * @Method("GET")
-     * @Template()
+     * @Rest\View
      */
-    public function indexAction($type_id)
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $specialistRep = $this->getDoctrine()->getManager()->getRepository('AppBundle:Specialist');
 
-        $entities = $em->getRepository('AppBundle:Specialist')->findBy(array('type' => $type_id));
-        $specialists =  $this->container->get('jms_serializer')->serialize($entities, 'json');
-        return new Response($specialists);
+        if ($request->query->has('type_id')) {
+            $entities = $specialistRep->findBy(array('type' => $request->query->get('type_id')));
+        } else {
+            $entities = $specialistRep->findAll();
+        }
+        return $entities;
     }
 
     /**
      * Finds and displays a Specialist entity.
      *
-     * @Route("/{id}", name="specialist_show")
+     * @Route("/{id}", name="specialist_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */

@@ -72,6 +72,11 @@ class Specialist
     protected $updatedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="Appointment", mappedBy="specialist")
+     **/
+    private $appointments;
+
+    /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the  update. If this
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
@@ -189,5 +194,65 @@ class Specialist
 
     public function __toString() {
         return $this->getName();
+    }
+
+    public function __construct() {
+        $this->appointments = new ArrayCollection();
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Specialist
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Add appointments
+     *
+     * @param \AppBundle\Entity\Appointment $appointments
+     * @return Specialist
+     */
+    public function addAppointment(\AppBundle\Entity\Appointment $appointments)
+    {
+        $this->appointments[] = $appointments;
+
+        return $this;
+    }
+
+    /**
+     * Remove appointments
+     *
+     * @param \AppBundle\Entity\Appointment $appointments
+     */
+    public function removeAppointment(\AppBundle\Entity\Appointment $appointments)
+    {
+        $this->appointments->removeElement($appointments);
+    }
+
+    /**
+     * Get appointments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAppointments()
+    {
+        return $this->appointments;
     }
 }

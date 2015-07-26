@@ -5,9 +5,9 @@ var app = app || {};
 
 	app.Appointment = Backbone.Model.extend({
 		defaults: {
-			specialist_id: '',
 			datetime: '',
-			currentStep: 0,
+            currentStep: 0,
+            specialist_id: null,
             specialistType: null
 		},
 

@@ -1,13 +1,17 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}Докторская{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+{% endblock %}
 
 {% block body %}
     <h1>Запись на прием</h1>
     <div id="appointment-app">
         <div class="progress"></div>
         <div id="step"></div>
-        <button type="button" class="btn btn-info" id="prevStep" disabled>назад</button>
+        <button type="button" class="btn btn-info" id="prevStep" disabled><i class="glyphicon glyphicon-arrow-left"></i> назад</button>
     </div>
 {% endblock %}
 
@@ -21,7 +25,9 @@
         <em><%= desc.length > 200 ? desc.substring(0, 200)+ '[...]' : desc %></em>
     </script>
     <script type="text/template" id="specialist-template">
-        <img class="spec_image" src="<%= imagePath %>" alt="<%= first_name %> <%= last_name %>" />
+        <% if (imagePath) { %>
+            <img class="spec_image" src="<%= imagePath %>" alt="<%= first_name %> <%= last_name %>" />
+        <% } %>
         <h4 class="list-group-item-heading"><%= first_name %> <%= last_name %></h4>
     </script>
     <script type="text/template" id="specialist-template">
@@ -37,8 +43,11 @@
       '@AppBundle/Resources/public/js/views/specialist-types-step-view.js'
       '@AppBundle/Resources/public/js/views/specialist-view.js'
       '@AppBundle/Resources/public/js/views/specialists-step-view.js'
+      '@AppBundle/Resources/public/js/views/datetime-step-view.js'
       '@AppBundle/Resources/public/js/views/app-view.js'
       '@AppBundle/Resources/public/js/app.js' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
 {% endblock %}

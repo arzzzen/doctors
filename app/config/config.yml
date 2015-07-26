@@ -37,6 +37,9 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'VichUploaderBundle:Form:fields.html.twig'
+    date:
+        format: %date.format%
+        interval_format: '%%d days'
 
 # Assetic Configuration
 assetic:
@@ -99,6 +102,8 @@ vich_uploader:
 
 easy_admin:
     entities:
+        Appointemnt:
+            class: AppBundle\Entity\Appointment
         Specialist:
             class: AppBundle\Entity\Specialist
             show:
@@ -117,3 +122,15 @@ easy_admin:
                 fields: ['id', 'title', 'desc']
             show:
                 fields: ['id', 'title', 'desc']
+
+fos_rest:
+    view:
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
+        view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, css, json, xml ], fallback_format: ~, prefer_extension: true }

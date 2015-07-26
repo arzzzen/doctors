@@ -30,7 +30,8 @@ var app = app || {};
 
             this.stepViews = [
                 new app.SpecialistTypesStepView(),
-                new app.SpecialistsStepView()
+                new app.SpecialistsStepView(),
+                new app.DatetimeStepView()
             ];
 
             _.bindAll(this, 'render');
@@ -46,7 +47,8 @@ var app = app || {};
 			this.$progress.html(this.progressTemplate({
 				progress: (100/this.stepViews.length)*step
 			}));
-            this.$step.html(this.stepViews[step].render().$el);
+            this.$step.html(this.stepViews[step].$el);
+            this.stepViews[step].render();
 
             if (!step) {
                 this.$prevStep.attr('disabled', 'disabled');

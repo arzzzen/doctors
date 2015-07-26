@@ -7,8 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\SpecialistType;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * SpecialistType controller.
@@ -23,7 +23,7 @@ class SpecialistTypeController extends Controller
      *
      * @Route("/", name="specialist-type", options={"expose"=true})
      * @Method("GET")
-     * @Template()
+     * @Rest\View
      */
     public function indexAction()
     {
@@ -31,8 +31,7 @@ class SpecialistTypeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:SpecialistType')->findAll();
-        $types = $this->container->get('serializer')->serialize($entities, 'json');
-        return new Response($types);
+        return $entities;
     }
 
     /**

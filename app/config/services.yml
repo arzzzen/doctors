@@ -7,8 +7,13 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  app.listener.serializationlistener:
-    class: AppBundle\Listener\SerializationListener
+  app.eventlistener.serializationlistener:
+    class: AppBundle\EventListener\SerializationListener
     arguments: ['@service_container']
     tags:
       - { name: jms_serializer.event_subscriber }
+  app.eventlistener.calendar_listener:
+    class: AppBundle\EventListener\CalendarEventListener
+    tags:
+      - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
+    arguments: ['@service_container']

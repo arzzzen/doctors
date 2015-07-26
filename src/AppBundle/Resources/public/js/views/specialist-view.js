@@ -5,7 +5,7 @@ var app = app || {};
 
 	app.SpecialistView = Backbone.View.extend({
 		tagName: 'a',
-		className: 'list-group-item spec-type clearfix',
+		className: 'list-group-item spec clearfix',
 		attributes: {
 			href: '#'
 		},
@@ -13,7 +13,7 @@ var app = app || {};
 		template: _.template($('#specialist-template').html()),
 
 		events: {
-			'click .spec': 'chooseSpec'
+			'click': 'chooseSpec'
 		},
 
 		initialize: function () {
