@@ -3,10 +3,11 @@ var app = app || {};
 (function ($) {
     'use strict';
 
-    app.SpecialistTypesStepView = Backbone.View.extend({
+    app.SpecialistTypesStepView = app.StepView.extend({
         className: 'list-group',
 
         initialize: function () {
+            this.loading();
             this.listenTo(app.specialistTypes, 'add', this.addOne);
             this.listenTo(app.specialistTypes, 'reset', this.addAll);
 

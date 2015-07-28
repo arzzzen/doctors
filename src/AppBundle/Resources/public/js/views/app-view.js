@@ -47,18 +47,24 @@ var app = app || {};
 			this.$progress.html(this.progressTemplate({
 				progress: (100/this.stepViews.length)*step
 			}));
-            this.$step.html(this.stepViews[step].$el);
-            this.stepViews[step].render();
+            this.showStep(step);
 
-            if (!step) {
-                this.$prevStep.attr('disabled', 'disabled');
-            } else {
-                this.$prevStep.removeAttr('disabled');
-            }
+            this.$prevStep[step?'removeAttr':'attr']('disabled','disabled');
 		},
 
         prevStep: function () {
             app.appointment.prevStep();
+        },
+
+        showStep: function (step) {
+            var cur_view = this.stepViews[step];
+            this.$step.children().hide();
+            if (this.$step.has(cur_view.el).length) {
+                cur_view.$el.show();
+            } else {
+                this.$step.append(cur_view.render().$el);
+                cur_view.addToDOM();
+            }
         }
 	});
 })(jQuery);

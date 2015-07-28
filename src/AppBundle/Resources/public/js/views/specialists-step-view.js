@@ -3,18 +3,20 @@ var app = app || {};
 (function ($) {
     'use strict';
 
-    app.SpecialistsStepView = Backbone.View.extend({
+    app.SpecialistsStepView = app.StepView.extend({
         className: 'list-group',
 
         initialize: function () {
             this.listenTo(app.specialists, 'add', this.addOne);
             this.listenTo(app.specialists, 'reset', this.addAll);
             app.appointment.on('change:specialistType', function() {
-                // Suppresses 'add' events with {reset: true} and prevents the app view
-                // from being re-rendered for every model. Only renders when the 'reset'
-                // event is triggered at the end of the fetch.
-                app.specialists.fetch({reset: true});
-            });
+                var self = this;
+                this.loading();
+                app.specialists.fetch({ reset: true, data: {type_id: app.appointment.get('specialistType')} })
+                    .success(function() {
+                        self.collectionFetched = true;
+                    });
+            }, this);
         },
 
         render: function () {
@@ -31,7 +33,7 @@ var app = app || {};
             if (app.specialists.length) {
                 this.$el.html('');
                 app.specialists.each(this.addOne, this);
-            }  else {
+            }  else if (this.collectionFetched) {
                 this.$el.text('Не найден ни один специалист');
             }
         }

@@ -7,7 +7,7 @@ var app = app || {};
 		model: app.Specialist,
 
 		url: function() {
-			return Routing.generate('specialist', {type_id: app.appointment.get('specialistType')});
+			return Routing.generate('specialist');
 		},
 
 		// Filter down the list of all todo items that are finished.

@@ -3,11 +3,14 @@ var app = app || {};
 (function ($) {
     'use strict';
 
-    app.DatetimeStepView = Backbone.View.extend({
-
-        initialize: function () {
+    app.DatetimeStepView = app.StepView.extend({
+        initialize: function() {
+            app.appointment.on('change:specialist_id', function() {
+                this.$el
+                    .fullCalendar('removeEvents')
+                    .fullCalendar('addEventSource', this.getCalendarEventSource());
+            }, this);
         },
-
         render: function () {
             this.$el.html('');
             this.$el.fullCalendar({
@@ -25,22 +28,24 @@ var app = app || {};
                     '': 'h:mmt'         // 7p
                 },
                 eventSources: [
-                    {
-                        url: Routing.generate('fullcalendar_loader'),
-                        type: 'POST',
-                        // A way to add custom filters to your event listeners
-                        data: {
-                            specialist_id: app.appointment.get('specialist_id')
-                        },
-                        error: function() {
-                            //alert('There was an error while fetching Google Calendar!');
-                        }
-                    }
+                    this.getCalendarEventSource()
                 ],
                 minTime: "09:00:00",
                 maxTime: "17:00:00"
             });
             return this;
+        },
+        getCalendarEventSource: function() {
+            return {
+                url: Routing.generate('fullcalendar_loader'),
+                type: 'POST',
+                data: {
+                    specialist_id: app.appointment.get('specialist_id')
+                }
+            };
+        },
+        addToDOM: function() {
+            this.$el.fullCalendar('render');
         }
     });
 })(jQuery);
