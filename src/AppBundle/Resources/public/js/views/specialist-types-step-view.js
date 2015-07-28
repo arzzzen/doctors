@@ -1,20 +1,26 @@
-var app = app || {};
-
-(function ($) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'appointment',
+    'views/step-view',
+    'collections/specialist-types',
+    'views/specialist-type-view'
+], function ($, _, Backbone, Appointment, StepView, SpecialistTypes, SpecialistTypeView) {
     'use strict';
 
-    app.SpecialistTypesStepView = app.StepView.extend({
+    var SpecialistTypesStepView = StepView.extend({
         className: 'list-group',
 
         initialize: function () {
             this.loading();
-            this.listenTo(app.specialistTypes, 'add', this.addOne);
-            this.listenTo(app.specialistTypes, 'reset', this.addAll);
+            this.listenTo(SpecialistTypes, 'add', this.addOne);
+            this.listenTo(SpecialistTypes, 'reset', this.addAll);
 
             // Suppresses 'add' events with {reset: true} and prevents the app view
             // from being re-rendered for every model. Only renders when the 'reset'
             // event is triggered at the end of the fetch.
-            app.specialistTypes.fetch({reset: true});
+            SpecialistTypes.fetch({reset: true});
         },
 
         render: function () {
@@ -23,13 +29,15 @@ var app = app || {};
         },
 
         addOne: function (type) {
-            var view = new app.SpecialistTypeView({ model: type });
+            var view = new SpecialistTypeView({ model: type });
             this.$el.append(view.render().el);
         },
 
         addAll: function () {
             this.$el.html('');
-            app.specialistTypes.each(this.addOne, this);
+            SpecialistTypes.each(this.addOne, this);
         }
     });
-})(jQuery);
+
+    return SpecialistTypesStepView;
+});

@@ -1,9 +1,12 @@
-var app = app || {};
-
-(function ($) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'appointment'
+], function ($, _, Backbone, Appointment) {
     'use strict';
 
-    app.SpecialistTypeView = Backbone.View.extend({
+    var SpecialistTypeView = Backbone.View.extend({
         tagName: 'a',
         className: 'list-group-item spec-type',
         attributes: {
@@ -23,8 +26,10 @@ var app = app || {};
 
         chooseType: function (e) {
             e.preventDefault();
-            app.appointment.set('specialistType', this.model.id);
-            app.appointment.nextStep();
+            Appointment.set('specialistType', this.model.id);
+            Appointment.nextStep();
         }
     });
-})(jQuery);
+
+    return SpecialistTypeView;
+});

@@ -1,12 +1,16 @@
-var app = app || {};
-
-(function () {
+define([
+    'jquery',
+    'underscore',
+    'backbone'
+], function ($, _, Backbone) {
     'use strict';
 
-    app.SpecialistType = Backbone.Model.extend({
+    var SpecialistType = Backbone.Model.extend({
         defaults: {
             title: '',
             desc: ''
         }
     });
-})();
+
+    return SpecialistType;
+});

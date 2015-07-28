@@ -1,18 +1,24 @@
-var app = app || {};
-
-(function ($) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'appointment',
+    'views/step-view',
+    'collections/specialists',
+    'views/specialist-view'
+], function ($, _, Backbone, Appointment, StepView, Specialists, SpecialistView) {
     'use strict';
 
-    app.SpecialistsStepView = app.StepView.extend({
+    var SpecialistsStepView = StepView.extend({
         className: 'list-group',
 
         initialize: function () {
-            this.listenTo(app.specialists, 'add', this.addOne);
-            this.listenTo(app.specialists, 'reset', this.addAll);
-            app.appointment.on('change:specialistType', function() {
+            this.listenTo(Specialists, 'add', this.addOne);
+            this.listenTo(Specialists, 'reset', this.addAll);
+            Appointment.on('change:specialistType', function() {
                 var self = this;
                 this.loading();
-                app.specialists.fetch({ reset: true, data: {type_id: app.appointment.get('specialistType')} })
+                Specialists.fetch({ reset: true, data: {type_id: Appointment.get('specialistType')} })
                     .success(function() {
                         self.collectionFetched = true;
                     });
@@ -25,17 +31,18 @@ var app = app || {};
         },
 
         addOne: function (specialist) {
-            var view = new app.SpecialistView({ model: specialist });
+            var view = new SpecialistView({ model: specialist });
             this.$el.append(view.render().el);
         },
 
         addAll: function () {
-            if (app.specialists.length) {
+            if (Specialists.length) {
                 this.$el.html('');
-                app.specialists.each(this.addOne, this);
+                Specialists.each(this.addOne, this);
             }  else if (this.collectionFetched) {
                 this.$el.text('Не найден ни один специалист');
             }
         }
     });
-})(jQuery);
+    return SpecialistsStepView;
+});

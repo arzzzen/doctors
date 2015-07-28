@@ -32,23 +32,4 @@
     </script>
     <script type="text/template" id="specialist-template">
     </script>
-
-    {% javascripts
-      '@AppBundle/Resources/public/js/models/appointment.js'
-      '@AppBundle/Resources/public/js/models/specialist.js'
-      '@AppBundle/Resources/public/js/models/specialist-type.js'
-      '@AppBundle/Resources/public/js/collections/specialist-types.js'
-      '@AppBundle/Resources/public/js/collections/specialists.js'
-      '@AppBundle/Resources/public/js/views/step-view.js'
-      '@AppBundle/Resources/public/js/views/specialist-type-view.js'
-      '@AppBundle/Resources/public/js/views/specialist-types-step-view.js'
-      '@AppBundle/Resources/public/js/views/specialist-view.js'
-      '@AppBundle/Resources/public/js/views/specialists-step-view.js'
-      '@AppBundle/Resources/public/js/views/datetime-step-view.js'
-      '@AppBundle/Resources/public/js/views/app-view.js'
-      '@AppBundle/Resources/public/js/app.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
 {% endblock %}

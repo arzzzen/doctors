@@ -1,11 +1,16 @@
-var app = app || {};
-
-(function ($) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'appointment',
+    'views/step-view',
+    'jquery-fullcalendar'
+], function ($, _, Backbone, Appointment, StepView, fullCalendar) {
     'use strict';
 
-    app.DatetimeStepView = app.StepView.extend({
+    var DatetimeStepView = StepView.extend({
         initialize: function() {
-            app.appointment.on('change:specialist_id', function() {
+            Appointment.on('change:specialist_id', function() {
                 this.$el
                     .fullCalendar('removeEvents')
                     .fullCalendar('addEventSource', this.getCalendarEventSource());
@@ -40,7 +45,7 @@ var app = app || {};
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
                 data: {
-                    specialist_id: app.appointment.get('specialist_id')
+                    specialist_id: Appointment.get('specialist_id')
                 }
             };
         },
@@ -48,4 +53,6 @@ var app = app || {};
             this.$el.fullCalendar('render');
         }
     });
-})(jQuery);
+    
+    return DatetimeStepView;
+});

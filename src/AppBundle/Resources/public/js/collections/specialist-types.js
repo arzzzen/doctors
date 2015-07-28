@@ -1,13 +1,16 @@
-var app = app || {};
-
-(function () {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'models/specialist-type'
+], function ($, _, Backbone, SpecialistType) {
     'use strict';
 
     var SpecialistTypes = Backbone.Collection.extend({
-        model: app.SpecialistType,
+        model: SpecialistType,
 
         url: Routing.generate('specialist-type')
     });
 
-    app.specialistTypes = new SpecialistTypes();
-})();
+   return new SpecialistTypes();
+});

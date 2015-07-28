@@ -1,8 +1,10 @@
-var app = app || {};
-
-(function ($) {
+define([
+    'jquery',
+    'underscore',
+    'backbone'
+], function ($, _, Backbone) {
     'use strict';
-    app.StepView = Backbone.View.extend({
+    var StepView = Backbone.View.extend({
         loading: function() {
             this.$el.html('<div class="loading-icon"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>');
             return this;
@@ -10,4 +12,5 @@ var app = app || {};
 
         addToDOM: function() {}
     });
-})(jQuery);
+    return StepView;
+});

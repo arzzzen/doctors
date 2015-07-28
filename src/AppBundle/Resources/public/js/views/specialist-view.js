@@ -1,9 +1,12 @@
-var app = app || {};
-
-(function ($) {
+define([
+	'jquery',
+	'underscore',
+	'backbone',
+	'appointment'
+], function ($, _, Backbone, Appointment) {
 	'use strict';
 
-	app.SpecialistView = Backbone.View.extend({
+	var SpecialistView = Backbone.View.extend({
 		tagName: 'a',
 		className: 'list-group-item spec clearfix',
 		attributes: {
@@ -26,8 +29,10 @@ var app = app || {};
 
 		chooseSpec: function (e) {
 			e.preventDefault();
-			app.appointment.set('specialist_id', this.model.id);
-			app.appointment.nextStep();
+			Appointment.set('specialist_id', this.model.id);
+			Appointment.nextStep();
 		}
 	});
-})(jQuery);
+
+	return SpecialistView;
+});
