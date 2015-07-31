@@ -10,7 +10,7 @@ define([
 		model: Specialist,
 
 		url: function() {
-			return Routing.generate('specialist');
+			return Routing.generate('specialists');
 		},
 
 		// Filter down the list of all todo items that are finished.
@@ -30,5 +30,5 @@ define([
 		},
 	});
 
-	return new Specialists();
+	return Specialists;
 });

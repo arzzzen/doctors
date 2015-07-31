@@ -16,7 +16,8 @@
   "dependencies": {
     "backbone": "~1.2.1",
     "fullcalendar": "~2.3.2",
-    "requirejs": "~2.1.20"
+    "requirejs": "~2.1.20",
+    "requirejs-text": "~2.0.14"
   },
   "homepage": "https://github.com/arzzzen/doctors"
 }

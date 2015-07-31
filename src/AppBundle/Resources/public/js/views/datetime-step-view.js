@@ -2,19 +2,27 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'appointment',
+    'scope',
     'views/step-view',
-    'jquery-fullcalendar'
-], function ($, _, Backbone, Appointment, StepView, fullCalendar) {
+    'jquery-fullcalendar',
+    'collections/appointments'
+], function ($, _, Backbone, scope, StepView, fullCalendar, Appointments) {
     'use strict';
 
     var DatetimeStepView = StepView.extend({
+        title: 'Выбор даты',
+        navPath: function () {
+            return 'datetime/st'+scope.appointment.get('specialistType')+'/s'+scope.appointment.get('specialist_id');
+        },
+
         initialize: function() {
-            Appointment.on('change:specialist_id', function() {
+            scope.appointment.on('change:specialist_id', function() {
                 this.$el
                     .fullCalendar('removeEvents')
                     .fullCalendar('addEventSource', this.getCalendarEventSource());
             }, this);
+
+
         },
         render: function () {
             this.$el.html('');
@@ -45,7 +53,7 @@ define([
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
                 data: {
-                    specialist_id: Appointment.get('specialist_id')
+                    specialist_id: scope.appointment.get('specialist_id')
                 }
             };
         },

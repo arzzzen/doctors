@@ -9,8 +9,8 @@ define([
     var SpecialistTypes = Backbone.Collection.extend({
         model: SpecialistType,
 
-        url: Routing.generate('specialist-type')
+        url: Routing.generate('specialist-types')
     });
 
-   return new SpecialistTypes();
+   return SpecialistTypes;
 });

@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Запись на прием{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="appointment-app">
+        <h2>Запись на прием</h2>
+        <div class="progress"></div>
+        <div class="row">
+            <div class="col-md-3" id="sidebar">
+                <ul class="nav nav-pills nav-stacked">
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div id="step"></div>
+                <button type="button" class="btn btn-info" id="prevStep" disabled><i class="glyphicon glyphicon-arrow-left"></i> назад</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+    '@AppBundle/Resources/public/vendor/requirejs/require.js' %}
+    <script data-main="{{ asset('bundles/app/js/main') }}" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

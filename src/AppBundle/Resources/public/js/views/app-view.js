@@ -2,11 +2,14 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'appointment',
+    'scope',
     'views/specialist-types-step-view',
     'views/specialists-step-view',
-    'views/datetime-step-view'
-], function ($, _, Backbone, Appointemnt, SpecialistTypesStepView, SpecialistsStepView, DatetimeStepView) {
+    'views/datetime-step-view',
+    'text!templates/progress.html',
+    'text!templates/sidebar-item.html',
+    'router'
+], function ($, _, Backbone, scope, SpecialistTypesStepView, SpecialistsStepView, DatetimeStepView, ProgressTemplate, SidebarItemTemplate, router) {
     'use strict';
 
     // The Application
@@ -19,7 +22,7 @@ define([
         // the App already present in the HTML.
         el: '#appointment-app',
 
-        progressTemplate: _.template($('#progress-template').html()),
+        progressTemplate: _.template(ProgressTemplate),
 
         // Delegated events for creating new items, and clearing completed ones.
         events: {
@@ -32,6 +35,8 @@ define([
         initialize: function () {
             this.$progress = this.$('.progress');
             this.$step = this.$('#step');
+            this.$sidebar = this.$('#sidebar');
+            this.$sidebarMenu = this.$sidebar.find('ul.nav');
             this.$prevStep = this.$('#prevStep');
 
             this.stepViews = [
@@ -41,25 +46,39 @@ define([
             ];
 
             _.bindAll(this, 'render');
-            Appointemnt.on('change:currentStep', this.render);
-
-            this.render();
+            scope.appointment.on('change:currentStep', this.render);
         },
 
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
         render: function () {
-            var step = Appointemnt.get('currentStep');
+            var step = scope.appointment.get('currentStep');
             this.$progress.html(this.progressTemplate({
                 progress: (100/this.stepViews.length)*step
             }));
+            this.renderSidebar(step);
             this.showStep(step);
 
             this.$prevStep[step?'removeAttr':'attr']('disabled','disabled');
         },
 
+        renderSidebar: function(step) {
+            this.$sidebarMenu.html('');
+            _.each(this.stepViews, function(viewItem, index) {
+               this.$sidebarMenu.append(
+                   _.template(SidebarItemTemplate)(
+                       _.extend(viewItem, {
+                           active: index == step,
+                           disabled: (index > step)
+                       })
+                   )
+               );
+            }, this);
+            return this;
+        },
+
         prevStep: function () {
-            Appointemnt.prevStep();
+            scope.appointment.prevStep();
         },
 
         showStep: function (step) {
@@ -71,6 +90,7 @@ define([
                 this.$step.append(cur_view.render().$el);
                 cur_view.addToDOM();
             }
+            router.navigate(cur_view.getNavPath());
         }
     });
     return AppView;

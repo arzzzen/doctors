@@ -2,25 +2,26 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'appointment',
+    'scope',
     'views/step-view',
-    'collections/specialist-types',
     'views/specialist-type-view'
-], function ($, _, Backbone, Appointment, StepView, SpecialistTypes, SpecialistTypeView) {
+], function ($, _, Backbone, scope, StepView, SpecialistTypeView) {
     'use strict';
 
     var SpecialistTypesStepView = StepView.extend({
         className: 'list-group',
+        title: 'Специалист',
+        navPath: 'specialist_type',
 
         initialize: function () {
             this.loading();
-            this.listenTo(SpecialistTypes, 'add', this.addOne);
-            this.listenTo(SpecialistTypes, 'reset', this.addAll);
+            this.listenTo(scope.specialistTypes, 'add', this.addOne);
+            this.listenTo(scope.specialistTypes, 'reset', this.addAll);
 
             // Suppresses 'add' events with {reset: true} and prevents the app view
             // from being re-rendered for every model. Only renders when the 'reset'
             // event is triggered at the end of the fetch.
-            SpecialistTypes.fetch({reset: true});
+            scope.specialistTypes.fetch({reset: true});
         },
 
         render: function () {
@@ -35,7 +36,7 @@ define([
 
         addAll: function () {
             this.$el.html('');
-            SpecialistTypes.each(this.addOne, this);
+            scope.specialistTypes.each(this.addOne, this);
         }
     });
 

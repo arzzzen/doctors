@@ -12,7 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 /**
  * Specialist controller.
  *
- * @Route("/specialist")
+ * @Route("/specialists")
  */
 class SpecialistController extends Controller
 {
@@ -20,7 +20,7 @@ class SpecialistController extends Controller
     /**
      * Lists all Specialist entities.
      *
-     * @Route("/", name="specialist", options={"expose"=true}, requirements={"type_id"="\d+"}, )
+     * @Route("/", name="specialists", options={"expose"=true}, requirements={"type_id"="\d+"}, )
      * @Method("GET")
      * @Rest\View
      */

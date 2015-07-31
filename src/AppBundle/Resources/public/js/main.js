@@ -24,14 +24,20 @@ require.config({
         backbone: '../vendor/backbone/backbone',
         appointment: 'models/appointment',
         'jquery-fullcalendar': '../../adesignscalendar/js/fullcalendar/jquery.fullcalendar.min',
-        'moment': '../vendor/moment/min/moment.min'
+        moment: '../vendor/moment/min/moment.min',
+        text: '../vendor/requirejs-text/text'
     }
 });
 
 require([
+    'jquery',
     'backbone',
-    'views/app-view'
-], function (Backbone, AppView) {
-    // Initialize the application view
-    new AppView();
+    'views/app-view',
+    'router'
+], function ($, Backbone, AppView, router) {
+    $(function() {
+        // Initialize the application view
+        new AppView();
+        Backbone.history.start();
+    })
 });

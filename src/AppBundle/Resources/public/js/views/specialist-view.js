@@ -2,8 +2,9 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'appointment'
-], function ($, _, Backbone, Appointment) {
+	'scope',
+	'text!templates/specialist.html'
+], function ($, _, Backbone, scope, SpecialistTemplate) {
 	'use strict';
 
 	var SpecialistView = Backbone.View.extend({
@@ -13,7 +14,7 @@ define([
 			href: '#'
 		},
 
-		template: _.template($('#specialist-template').html()),
+		template: _.template(SpecialistTemplate),
 
 		events: {
 			'click': 'chooseSpec'
@@ -29,8 +30,8 @@ define([
 
 		chooseSpec: function (e) {
 			e.preventDefault();
-			Appointment.set('specialist_id', this.model.id);
-			Appointment.nextStep();
+			scope.appointment.set('specialist_id', this.model.id);
+			scope.appointment.nextStep();
 		}
 	});
 

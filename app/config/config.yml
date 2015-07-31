@@ -44,13 +44,15 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
     bundles:        [ AppBundle ]
-    #java: /usr/bin/java
+    use_controller: true
+    ruby: 'bash'
+    sass: '/home/arsen/.rvm/bin/sass'
     filters:
         cssrewrite: ~
         sass:
-            sass: /home/arsen/.rvm/bin/php_sass
+            bin: '/home/arsen/.rvm/bin/sass'
+            apply_to: "\.scss$"
         less:
             node: /usr/bin/node
             node_paths: [/usr/lib/node_modules]

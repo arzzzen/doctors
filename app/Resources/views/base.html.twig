@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Докторская{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
@@ -10,7 +10,7 @@
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
-    {% stylesheets '@AppBundle/Resources/public/css/*' %}
+    {% stylesheets '@AppBundle/Resources/public/css/main.scss' filter="sass" %}
         <link href="{{ asset_url }}" rel="stylesheet">
     {% endstylesheets %}
     {% block stylesheets %}{% endblock %}
@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Докторская</a>
+          <a class="navbar-brand" href="{{ path('homepage') }}">Докторская</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           {{ knp_menu_render('AppBundle:Builder:mainMenu', { 'style': 'navbar' }) }}
@@ -43,10 +43,6 @@
     </div><!-- /.container -->
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    {% javascripts
-        '@AppBundle/Resources/public/vendor/requirejs/require.js' %}
-        <script data-main="{{ asset('bundles/app/js/main') }}" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
     {% block javascripts %}{% endblock %}
 </body>
 </html>

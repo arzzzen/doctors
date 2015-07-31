@@ -2,23 +2,26 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'appointment',
+    'scope',
     'views/step-view',
-    'collections/specialists',
     'views/specialist-view'
-], function ($, _, Backbone, Appointment, StepView, Specialists, SpecialistView) {
+], function ($, _, Backbone, scope, StepView, SpecialistView) {
     'use strict';
 
     var SpecialistsStepView = StepView.extend({
         className: 'list-group',
+        title: 'Приемный врач',
+        navPath: function () {
+            return 'specialist/st'+scope.appointment.get('specialistType');
+        },
 
         initialize: function () {
-            this.listenTo(Specialists, 'add', this.addOne);
-            this.listenTo(Specialists, 'reset', this.addAll);
-            Appointment.on('change:specialistType', function() {
+            this.listenTo(scope.specialists, 'add', this.addOne);
+            this.listenTo(scope.specialists, 'reset', this.addAll);
+            scope.appointment.on('change:specialistType', function() {
                 var self = this;
                 this.loading();
-                Specialists.fetch({ reset: true, data: {type_id: Appointment.get('specialistType')} })
+                scope.specialists.fetch({ reset: true, data: {type_id: scope.appointment.get('specialistType')} })
                     .success(function() {
                         self.collectionFetched = true;
                     });
@@ -36,12 +39,14 @@ define([
         },
 
         addAll: function () {
-            if (Specialists.length) {
-                this.$el.html('');
-                Specialists.each(this.addOne, this);
-            }  else if (this.collectionFetched) {
-                this.$el.text('Не найден ни один специалист');
-            }
+            this.loadingPromise.done(_.bind(function() {
+                if (scope.specialists.length) {
+                    this.$el.html('');
+                    scope.specialists.each(this.addOne, this);
+                }  else if (this.collectionFetched) {
+                    this.$el.text('Не найден ни один специалист');
+                }
+            }, this));
         }
     });
     return SpecialistsStepView;

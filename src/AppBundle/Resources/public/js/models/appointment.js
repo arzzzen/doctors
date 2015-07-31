@@ -5,7 +5,7 @@ define([
     var Appointment = Backbone.Model.extend({
         defaults: {
             datetime: '',
-            currentStep: 0,
+            currentStep: null,
             specialist_id: null,
             specialistType: null
         },
@@ -20,5 +20,5 @@ define([
             }
         }
     });
-    return new Appointment();
+    return Appointment;
 });

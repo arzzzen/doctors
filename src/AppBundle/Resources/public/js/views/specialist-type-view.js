@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'appointment'
-], function ($, _, Backbone, Appointment) {
+    'scope',
+    'text!templates/specialist-type.html'
+], function ($, _, Backbone, scope, SpecialistTypeTemplate) {
     'use strict';
 
     var SpecialistTypeView = Backbone.View.extend({
@@ -17,7 +18,7 @@ define([
             'click': 'chooseType'
         },
 
-        template: _.template($('#specialist-type-template').html()),
+        template: _.template(SpecialistTypeTemplate),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
@@ -26,8 +27,8 @@ define([
 
         chooseType: function (e) {
             e.preventDefault();
-            Appointment.set('specialistType', this.model.id);
-            Appointment.nextStep();
+            scope.appointment.set('specialistType', this.model.id);
+            scope.appointment.nextStep();
         }
     });
 
